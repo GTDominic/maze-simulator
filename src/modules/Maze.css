@@ -1,0 +1,24 @@
+.boardWall {
+    fill: #000000;
+  }
+  
+  .boardPath {
+    fill: #ffffff;
+  }
+  
+  .boardEntrance {
+    fill: #00ffff;
+  }
+  
+  .boardExit {
+    fill: #ffff00;
+  }
+  
+  .boardPathTravelled {
+    fill: #ff0000;
+  }
+  
+  .boardPathFocus {
+    fill: #0000ff;
+  }
+  
