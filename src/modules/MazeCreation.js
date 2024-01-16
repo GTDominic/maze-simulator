@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
+import { RadioButton } from '@ui5/webcomponents-react';
 import "./MazeCreation.css";
 import Maze from "./Maze";
 
@@ -9,6 +10,7 @@ function MazeCreation(props) {
 
   const [width, setWidth] = useState(2);
   const [height, setHeight] = useState(2);
+  const [mode, setMode] = useState(1);
 
   const handleChangeSize = () => {
     const newWidth = Number(widthInput.current.value);
@@ -45,6 +47,10 @@ function MazeCreation(props) {
     setWidth(newWidth);
   };
 
+  const handleClickElement = (row, column) => {
+    alert(`${row} ${column} ${mode}`);
+  };
+
   useEffect(() => {
     changeSize.current.addEventListener("click", handleChangeSize);
     return () => {
@@ -63,12 +69,13 @@ function MazeCreation(props) {
           Change Size
         </ui5-button>
       </div>
-      <Maze
-        data={props.board}
-        onClick={(row, column) => {
-          alert(`${row}  ${column}`);
-        }}
-      />
+      <Maze data={props.board} stroked={true} onClick={(row, column) => handleClickElement(row, column)} />
+      <div>
+        <RadioButton onChange={() => setMode(0)} name="ModeSelector" checked={mode === 0} text="Wall" />
+        <RadioButton onChange={() => setMode(1)} name="ModeSelector" checked={mode === 1} text="Path" />
+        <RadioButton onChange={() => setMode(2)} name="ModeSelector" checked={mode === 2} text="Entrance" />
+        <RadioButton onChange={() => setMode(3)} name="ModeSelector" checked={mode === 3} text="Exit" />
+      </div>
     </>
   );
 }

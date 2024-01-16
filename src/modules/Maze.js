@@ -14,6 +14,7 @@ function Maze(props) {
           className = element === 2 ? classes[2] : classes[5];
         }
       }
+      if (props.stroked) className += 'Stroked';
       renderData.push({ x: columnIndex * scale, y: rowIndex * scale, className, rowIndex, columnIndex });
     }
   }
