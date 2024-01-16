@@ -48,7 +48,11 @@ function MazeCreation(props) {
   };
 
   const handleClickElement = (row, column) => {
-    alert(`${row} ${column} ${mode}`);
+    if (props.board[row][column] === mode) return;
+    let newBoard = [];
+    for (const rowElement of props.board) newBoard.push([...rowElement]);
+    newBoard[row][column] = mode;
+    props.setBoard(newBoard);
   };
 
   useEffect(() => {
