@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import { RadioButton } from '@ui5/webcomponents-react';
+import { RadioButton, Badge } from "@ui5/webcomponents-react";
 import "./MazeCreation.css";
 import Maze from "./Maze";
 
@@ -11,6 +11,9 @@ function MazeCreation(props) {
   const [width, setWidth] = useState(2);
   const [height, setHeight] = useState(2);
   const [mode, setMode] = useState(1);
+  const [entranceCheck, setEntranceCheck] = useState(0);
+  const [exitCheck, setExitCheck] = useState(0);
+  const [outsideWallsCheck, setOutsideWallsCheck] = useState(1);
 
   const handleChangeSize = () => {
     const newWidth = Number(widthInput.current.value);
@@ -55,12 +58,64 @@ function MazeCreation(props) {
     props.setBoard(newBoard);
   };
 
+  const checkOutsideWall = () => {
+    let hole = false;
+    for (let element of props.board[0]) if (element === 1) hole = true;
+    for (let element of props.board[props.board.length - 1]) if (element === 1) hole = true;
+    for (let row of props.board) {
+      if (row[0] === 1) hole = true;
+      if (row[row.length - 1] === 1) hole = true;
+    }
+    setOutsideWallsCheck(hole ? 0 : 1);
+  };
+
+  const checkEntranceExit = (type) => {
+    let outputMode;
+    let eCount = 0;
+    let ePos;
+    for (const [y, row] of props.board.entries()) {
+      for (const [x, element] of row.entries()) {
+        if (element === type) {
+          eCount++;
+          ePos = { x, y };
+        }
+      }
+    }
+    outputMode = eCount === 0 ? 0 : eCount > 1 ? 2 : 1;
+    if (outputMode === 1) {
+      if (ePos.y !== 0 && ePos.x !== 0 && ePos.y !== height - 1 && ePos.x !== width - 1) {
+        outputMode = 3;
+      }
+    }
+    if (outputMode === 1) {
+      if(ePos.x === 0) {
+        outputMode = props.board[ePos.y][1] === 1 ? 1 : 4;
+      } else if (ePos.x === width - 1) {
+        outputMode = props.board[ePos.y][width - 2] === 1 ? 1 : 4;
+      } else {
+        if(ePos.y === 0) {
+          outputMode = props.board[1][ePos.x] === 1 ? 1 : 4;
+        } else {
+          outputMode = props.board[height - 2][ePos.x] === 1 ? 1 : 4;
+        }
+      }
+    }
+    if (type === 2) setEntranceCheck(outputMode);
+    if (type === 3) setExitCheck(outputMode);
+  };
+
   useEffect(() => {
     changeSize.current.addEventListener("click", handleChangeSize);
     return () => {
       changeSize.current.removeEventListener("click", handleChangeSize);
     };
   }, [handleChangeSize]);
+
+  useEffect(() => {
+    checkOutsideWall();
+    checkEntranceExit(2);
+    checkEntranceExit(3);
+  }, [props.board]);
 
   return (
     <>
@@ -79,6 +134,20 @@ function MazeCreation(props) {
         <RadioButton onChange={() => setMode(1)} name="ModeSelector" checked={mode === 1} text="Path" />
         <RadioButton onChange={() => setMode(2)} name="ModeSelector" checked={mode === 2} text="Entrance" />
         <RadioButton onChange={() => setMode(3)} name="ModeSelector" checked={mode === 3} text="Exit" />
+      </div>
+      <div>
+        {entranceCheck === 0 && <Badge className="error-badges" colorScheme="2">No entrance found!</Badge>}
+        {entranceCheck === 1 && <Badge className="error-badges" colorScheme="7">Entrance available</Badge>}
+        {entranceCheck === 2 && <Badge className="error-badges" colorScheme="1">Too many entrances!</Badge>}
+        {entranceCheck === 3 && <Badge className="error-badges" colorScheme="1">Entrance not on outside wall!</Badge>}
+        {entranceCheck === 4 && <Badge className="error-badges" colorScheme="1">No path connected to entrance!</Badge>}
+        {exitCheck === 0 && <Badge className="error-badges" colorScheme="2">No exit found!</Badge>}
+        {exitCheck === 1 && <Badge className="error-badges" colorScheme="7">Exit available</Badge>}
+        {exitCheck === 2 && <Badge className="error-badges" colorScheme="1">Too many exits!</Badge>}
+        {exitCheck === 3 && <Badge className="error-badges" colorScheme="1">Exit not on outside wall!</Badge>}
+        {exitCheck === 4 && <Badge className="error-badges" colorScheme="1">No path connected to exit!</Badge>}
+        {outsideWallsCheck === 0 && <Badge className="error-badges" colorScheme="2">No continous outside wall</Badge>}
+        {outsideWallsCheck === 1 && <Badge className="error-badges" colorScheme="7">Outside wall continous</Badge>}
       </div>
     </>
   );
