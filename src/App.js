@@ -6,9 +6,13 @@ import "@ui5/webcomponents/dist/Input";
 import "@ui5/webcomponents/dist/Button";
 
 import MazeCreation from "./modules/MazeCreation";
+import MazeSolveManual from "./modules/MazeSolveManual";
 
 function App() {
-  const [board, setBoard] = useState([[0,0],[0,0]]);
+  const [board, setBoard] = useState([
+    [0, 0],
+    [0, 0],
+  ]);
 
   return (
     <div className="app">
@@ -20,14 +24,11 @@ function App() {
         </div>
         <div className="dropdown-wrapper">
           <ui5-panel header-text="Solve the Maze Manually" collapsed={true}>
-            <p>Test</p>
+            <MazeSolveManual board={board} setBoard={setBoard} />
           </ui5-panel>
         </div>
         <div className="dropdown-wrapper">
-          <ui5-panel
-            header-text="Algorithmically Solve the Maze"
-            collapsed={true}
-          >
+          <ui5-panel header-text="Algorithmically Solve the Maze" collapsed={true}>
             <p>Test</p>
           </ui5-panel>
         </div>
