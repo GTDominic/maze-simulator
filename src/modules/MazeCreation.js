@@ -7,8 +7,8 @@ function MazeCreation(props) {
   const widthInput = useRef(),
     heightInput = useRef();
 
-  const [width, setWidth] = useState(2);
-  const [height, setHeight] = useState(2);
+  const [width, setWidth] = useState(props.board[0].length);
+  const [height, setHeight] = useState(props.board.length);
   const [mode, setMode] = useState(1);
   const [entranceCheck, setEntranceCheck] = useState(0);
   const [exitCheck, setExitCheck] = useState(0);
