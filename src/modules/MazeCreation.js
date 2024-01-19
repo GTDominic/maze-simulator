@@ -130,7 +130,7 @@ function MazeCreation(props) {
     checkOutsideWall();
     checkEntranceExit(2);
     checkEntranceExit(3);
-  }, [props.board, width, height]);
+  }, [props.board]);
 
   return (
     <>
