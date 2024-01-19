@@ -1,13 +1,11 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
-import { RadioButton, Badge, FileUploader } from "@ui5/webcomponents-react";
+import React, { useRef, useState, useEffect } from "react";
+import { RadioButton, Badge, FileUploader, Input, Button } from "@ui5/webcomponents-react";
 import "./MazeCreation.css";
 import Maze from "./Maze";
 
 function MazeCreation(props) {
   const widthInput = useRef(),
-    heightInput = useRef(),
-    changeSize = useRef(),
-    downloadButton = useRef();
+    heightInput = useRef();
 
   const [width, setWidth] = useState(2);
   const [height, setHeight] = useState(2);
@@ -129,20 +127,6 @@ function MazeCreation(props) {
   };
 
   useEffect(() => {
-    changeSize.current.addEventListener("click", handleChangeSize);
-    return () => {
-      changeSize.current.removeEventListener("click", handleChangeSize);
-    };
-  }, [handleChangeSize]);
-
-  useEffect(() => {
-    downloadButton.current.addEventListener("click", handleDownload);
-    return () => {
-      downloadButton.current.removeEventListener("click", handleDownload);
-    };
-  }, [handleDownload]);
-
-  useEffect(() => {
     checkOutsideWall();
     checkEntranceExit(2);
     checkEntranceExit(3);
@@ -152,17 +136,17 @@ function MazeCreation(props) {
     <>
       <div>
         Width:
-        <ui5-input type="Number" ref={widthInput} value={width} class="menu-bar number-input"></ui5-input>
+        <Input type="Number" ref={widthInput} value={width} className="menu-bar number-input"></Input>
         Height:
-        <ui5-input type="Number" ref={heightInput} value={height} class="menu-bar number-input"></ui5-input>
-        <ui5-button ref={changeSize} class="menu-bar">
+        <Input type="Number" ref={heightInput} value={height} className="menu-bar number-input"></Input>
+        <Button onClick={handleChangeSize} className="menu-bar">
           Change Size
-        </ui5-button>
-        <ui5-button ref={downloadButton} class="menu-bar">
+        </Button>
+        <Button onClick={handleDownload} className="menu-bar">
           Download Maze Settings
-        </ui5-button>
+        </Button>
         <FileUploader className="menu-bar" onInput={handleUpload} accept=".json" hideInput>
-          <ui5-button>Upload Maze Settings</ui5-button>
+          <Button>Upload Maze Settings</Button>
         </FileUploader>
       </div>
       <Maze data={props.board} stroked={true} onClick={(row, column) => handleClickElement(row, column)} />

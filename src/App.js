@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import "./App.css";
 
 import "@ui5/webcomponents/dist/Panel";
-import "@ui5/webcomponents/dist/Input";
-import "@ui5/webcomponents/dist/Button";
 
 import MazeCreation from "./modules/MazeCreation";
 import MazeSolveManual from "./modules/MazeSolveManual";
