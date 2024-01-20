@@ -3,7 +3,7 @@ import "./Maze.css";
 
 function Maze(props) {
   const classes = ["boardWall", "boardPath", "boardEntrance", "boardExit", "boardPathTravelled", "boardPathFocus"];
-  const scale = 20;
+  const scale = props.scale;
   let renderData = [];
 
   for (const [rowIndex, row] of props.data.entries()) {

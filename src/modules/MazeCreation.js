@@ -18,7 +18,7 @@ function MazeCreation(props) {
     const newWidth = Number(widthInput.current.value);
     const newHeight = Number(heightInput.current.value);
     let newBoard = props.board;
-    if (!Number.isInteger(newWidth) || !Number.isInteger(newHeight) || Number(newWidth) <= 1 || Number(newHeight) <= 1) {
+    if (!Number.isInteger(newWidth) || !Number.isInteger(newHeight) || newWidth <= 1 || newHeight <= 1) {
       widthInput.current.value = width;
       heightInput.current.value = height;
       return;
@@ -149,7 +149,7 @@ function MazeCreation(props) {
           <Button>Upload Maze Settings</Button>
         </FileUploader>
       </div>
-      <Maze data={props.board} stroked={true} onClick={(row, column) => handleClickElement(row, column)} />
+      <Maze data={props.board} stroked={true} onClick={(row, column) => handleClickElement(row, column)} scale={props.scale} />
       <div>
         <RadioButton onChange={() => setMode(0)} name="ModeSelector" checked={mode === 0} text="Wall" />
         <RadioButton onChange={() => setMode(1)} name="ModeSelector" checked={mode === 1} text="Path" />

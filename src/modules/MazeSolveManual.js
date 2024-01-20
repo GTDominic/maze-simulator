@@ -54,7 +54,7 @@ function MazeSolveManual(props) {
 
   return (
     <>
-      <Maze data={props.board} stroked={false} onClick={(row, column) => handleClickElement(row, column)} focusPoint={focusPoint} />
+      <Maze data={props.board} stroked={false} onClick={(row, column) => handleClickElement(row, column)} focusPoint={focusPoint} scale={props.scale} />
     </>
   );
 }
