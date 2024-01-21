@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import Maze from "./Maze";
 
 function MazeSolveManual(props) {
@@ -51,6 +51,16 @@ function MazeSolveManual(props) {
     setFocusPoint({ row, column });
     props.setBoard(newBoard);
   };
+
+  useEffect(() => {
+    let newBoard = props.board;
+    for (const row of newBoard) {
+      for (let i = 0; i < row.length; i++) {
+        if (row[i] === 4) row[i] = 1;
+      }
+    }
+    props.setBoard(newBoard);
+  }, []);
 
   return (
     <>

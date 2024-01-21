@@ -132,6 +132,16 @@ function MazeCreation(props) {
     checkEntranceExit(3);
   }, [props.board]);
 
+  useEffect(() => {
+    let newBoard = props.board;
+    for (const row of newBoard) {
+      for (let i = 0; i < row.length; i++) {
+        if (row[i] === 4) row[i] = 1;
+      }
+    }
+    props.setBoard(newBoard);
+  }, []);
+
   return (
     <>
       <div>
