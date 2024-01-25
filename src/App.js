@@ -5,6 +5,7 @@ import { Input, RadioButton } from "@ui5/webcomponents-react";
 
 import MazeCreation from "./modules/MazeCreation";
 import MazeSolveManual from "./modules/MazeSolveManual";
+import MazeSolveAlgorithmic from "./modules/MazeSolveAlgorithmic";
 
 function App() {
   const [board, setBoard] = useState([
@@ -39,7 +40,7 @@ function App() {
         <div>
           {mode === 0 && <MazeCreation board={board} setBoard={setBoard} scale={scale} />}
           {mode === 1 && <MazeSolveManual board={board} setBoard={setBoard} scale={scale} />}
-          {mode === 2 && <p>Test</p>}
+          {mode === 2 && <MazeSolveAlgorithmic board={board} setBoard={setBoard} scale={scale} />}
         </div>
       </section>
     </div>
