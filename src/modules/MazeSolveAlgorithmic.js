@@ -22,10 +22,39 @@ function MazeSolveAlgorithmic(props) {
   const [currentAlgorithm, setCurrentAlgorithm] = useState(algorithms[0]);
   const [runAI, setRunAI] = useState(false);
   const [speed, setSpeed] = useState(500);
+  const [disabledElements, setDisabledElements] = useState(false);
   const [followRightWall, setFollowRightWall] = useState(new FollowRightWall(props.board, props.setBoard, focusPoint, setFocusPoint));
 
   const step = () => {
+    if (!disabledElements) {
+      setDisabledElements(true);
+    }
     if (currentAlgorithm === algorithms[0]) followRightWall.step();
+  };
+
+  const reset = () => {
+    setDisabledElements(false);
+    // Reset Board
+    let newBoard = props.board;
+    for (const row of newBoard) {
+      for (let i = 0; i < row.length; i++) {
+        if (row[i] === 4) row[i] = 1;
+      }
+    }
+    let row, column;
+    // Reset Focus Point
+    for (const [rowIndex, rowElement] of newBoard.entries()) {
+      for (const [columnIndex, element] of rowElement.entries()) {
+        if (element === 2) {
+          row = rowIndex;
+          column = columnIndex;
+        }
+      }
+    }
+    setFocusPoint({ row, column });
+    props.setBoard(newBoard);
+    // Reset Algorithms
+    followRightWall.reset(newBoard, { row, column });
   };
 
   const handleSpeedChange = (e) => {
@@ -45,6 +74,17 @@ function MazeSolveAlgorithmic(props) {
     };
   }, [speed, runAI]);
 
+  useEffect(() => {
+    let newBoard = [];
+    for (const row of props.board) newBoard.push([...row]);
+    for (const row of newBoard) {
+      for (let i = 0; i < row.length; i++) {
+        if (row[i] === 4) row[i] = 1;
+      }
+    }
+    props.setBoard(newBoard);
+  }, []);
+
   return (
     <>
       <div>
@@ -52,6 +92,7 @@ function MazeSolveAlgorithmic(props) {
           onChange={(e) => {
             setCurrentAlgorithm(e.target.value);
           }}
+          disabled={disabledElements}
         >
           {algorithms.map((v) => (
             <Option value={v} key={v}>
@@ -59,6 +100,7 @@ function MazeSolveAlgorithmic(props) {
             </Option>
           ))}
         </Select>
+        <Button onClick={reset}>Reset</Button>
         <Button onClick={step}>Step Algorithm</Button>
         <Switch
           onChange={() => {

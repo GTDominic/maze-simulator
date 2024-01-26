@@ -53,7 +53,8 @@ function MazeSolveManual(props) {
   };
 
   useEffect(() => {
-    let newBoard = props.board;
+    let newBoard = [];
+    for (const row of props.board) newBoard.push([...row]);
     for (const row of newBoard) {
       for (let i = 0; i < row.length; i++) {
         if (row[i] === 4) row[i] = 1;

@@ -12,6 +12,12 @@ class FollowRightWall {
     this.setFocusPoint = setFocusPoint;
   }
 
+  reset(board, focusPoint) {
+    this.board = board;
+    this.focusPoint = focusPoint;
+    this.lastPosition = null;
+  }
+
   step() {
     if (this.board[this.focusPoint.row][this.focusPoint.column] === 3) return;
     if (!this.lastPosition) return this.firstStep();
