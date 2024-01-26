@@ -7,6 +7,8 @@ import MazeCreation from "./modules/MazeCreation";
 import MazeSolveManual from "./modules/MazeSolveManual";
 import MazeSolveAlgorithmic from "./modules/MazeSolveAlgorithmic";
 
+// TODO: Document Code
+
 function App() {
   const [board, setBoard] = useState([
     [0, 0],

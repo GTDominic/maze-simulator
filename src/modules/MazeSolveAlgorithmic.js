@@ -4,6 +4,8 @@ import { Select, Option, Button, Switch, Input } from "@ui5/webcomponents-react"
 
 import FollowRightWall from "../algorithms/FollowRightWall";
 
+// TODO: Stats
+
 function MazeSolveAlgorithmic(props) {
   const algorithms = ["Follow Right Wall"];
 
@@ -68,6 +70,7 @@ function MazeSolveAlgorithmic(props) {
     reset();
   }, []);
 
+  // TODO: Style Menu Bar
   return (
     <>
       <div>
