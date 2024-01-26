@@ -7,18 +7,7 @@ import FollowRightWall from "../algorithms/FollowRightWall";
 function MazeSolveAlgorithmic(props) {
   const algorithms = ["Follow Right Wall"];
 
-  const [focusPoint, setFocusPoint] = useState(() => {
-    let row, column;
-    for (const [rowIndex, rowElement] of props.board.entries()) {
-      for (const [columnIndex, element] of rowElement.entries()) {
-        if (element === 2) {
-          row = rowIndex;
-          column = columnIndex;
-        }
-      }
-    }
-    return { row, column };
-  });
+  const [focusPoint, setFocusPoint] = useState(null);
   const [currentAlgorithm, setCurrentAlgorithm] = useState(algorithms[0]);
   const [runAI, setRunAI] = useState(false);
   const [speed, setSpeed] = useState(500);
@@ -33,6 +22,7 @@ function MazeSolveAlgorithmic(props) {
   };
 
   const reset = () => {
+    setRunAI(false);
     setDisabledElements(false);
     // Reset Board
     let newBoard = props.board;
@@ -75,14 +65,7 @@ function MazeSolveAlgorithmic(props) {
   }, [speed, runAI]);
 
   useEffect(() => {
-    let newBoard = [];
-    for (const row of props.board) newBoard.push([...row]);
-    for (const row of newBoard) {
-      for (let i = 0; i < row.length; i++) {
-        if (row[i] === 4) row[i] = 1;
-      }
-    }
-    props.setBoard(newBoard);
+    reset();
   }, []);
 
   return (
@@ -103,6 +86,7 @@ function MazeSolveAlgorithmic(props) {
         <Button onClick={reset}>Reset</Button>
         <Button onClick={step}>Step Algorithm</Button>
         <Switch
+          checked={runAI}
           onChange={() => {
             setRunAI(!runAI);
           }}
