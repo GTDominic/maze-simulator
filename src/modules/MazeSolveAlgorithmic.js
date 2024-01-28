@@ -4,8 +4,6 @@ import { Select, Option, Button, Switch, Input } from "@ui5/webcomponents-react"
 
 import FollowRightWall from "../algorithms/FollowRightWall";
 
-// TODO: Stats
-
 function MazeSolveAlgorithmic(props) {
   const algorithms = ["Follow Right Wall"];
 
@@ -14,7 +12,12 @@ function MazeSolveAlgorithmic(props) {
   const [runAI, setRunAI] = useState(false);
   const [speed, setSpeed] = useState(500);
   const [disabledElements, setDisabledElements] = useState(false);
-  const [followRightWall, setFollowRightWall] = useState(new FollowRightWall(props.board, props.setBoard, focusPoint, setFocusPoint));
+  const [stats, setStats] = useState({
+    steps: 0,
+    boardChecks: 0,
+    boardValueChanges: 0,
+  });
+  const [followRightWall, setFollowRightWall] = useState(new FollowRightWall(props.board, props.setBoard, focusPoint, setFocusPoint, stats, setStats));
 
   const step = () => {
     if (!disabledElements) {
@@ -45,6 +48,12 @@ function MazeSolveAlgorithmic(props) {
     }
     setFocusPoint({ row, column });
     props.setBoard(newBoard);
+    // Reset Stats
+    setStats({
+      steps: 0,
+      boardChecks: 0,
+      boardValueChanges: 0,
+    });
     // Reset Algorithms
     followRightWall.reset(newBoard, { row, column });
   };
@@ -101,6 +110,11 @@ function MazeSolveAlgorithmic(props) {
       </div>
       <div>
         <Maze data={props.board} stroked={false} onClick={(row, column) => {}} focusPoint={focusPoint} scale={props.scale} />
+      </div>
+      <div>
+        <p>Steps: {stats.steps}</p>
+        <p>Board Checks: {stats.boardChecks}</p>
+        <p>Board Value Changes: {stats.boardValueChanges}</p>
       </div>
     </>
   );
