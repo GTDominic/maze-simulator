@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Maze from "./Maze";
+import "./MazeSolveAlgorithmic.css";
 import { Select, Option, Button, Switch, Input } from "@ui5/webcomponents-react";
 
 import FollowRightWall from "../algorithms/FollowRightWall";
@@ -79,11 +80,11 @@ function MazeSolveAlgorithmic(props) {
     reset();
   }, []);
 
-  // TODO: Style Menu Bar
   return (
     <>
-      <div>
+      <div className="alg-menu-bar">
         <Select
+          className="menu-element"
           onChange={(e) => {
             setCurrentAlgorithm(e.target.value);
           }}
@@ -95,9 +96,14 @@ function MazeSolveAlgorithmic(props) {
             </Option>
           ))}
         </Select>
-        <Button onClick={reset}>Reset</Button>
-        <Button onClick={step}>Step Algorithm</Button>
+        <Button className="menu-element" onClick={reset}>
+          Reset
+        </Button>
+        <Button className="menu-element" onClick={step}>
+          Step Algorithm
+        </Button>
         <Switch
+          className="switch"
           checked={runAI}
           onChange={() => {
             setRunAI(!runAI);
@@ -105,13 +111,13 @@ function MazeSolveAlgorithmic(props) {
         />
         {runAI && <>Stop Algorithm</>}
         {!runAI && <>Run Algorithm</>}
-        <Input type="Number" onChange={handleSpeedChange} value={speed} />
+        <Input className="menu-element alg-number-input" type="Number" onChange={handleSpeedChange} value={speed} />
         Algorithm Speed
       </div>
-      <div>
+      <div className="maze">
         <Maze data={props.board} stroked={false} onClick={(row, column) => {}} focusPoint={focusPoint} scale={props.scale} />
       </div>
-      <div>
+      <div className="menu-element">
         <p>Steps: {stats.steps}</p>
         <p>Board Checks: {stats.boardChecks}</p>
         <p>Board Value Changes: {stats.boardValueChanges}</p>

@@ -144,7 +144,7 @@ function MazeCreation(props) {
 
   return (
     <>
-      <div>
+      <div className="maze">
         Width:
         <Input type="Number" ref={widthInput} value={width} className="menu-bar number-input"></Input>
         Height:
@@ -159,7 +159,9 @@ function MazeCreation(props) {
           <Button>Upload Maze Settings</Button>
         </FileUploader>
       </div>
-      <Maze data={props.board} stroked={true} onClick={(row, column) => handleClickElement(row, column)} scale={props.scale} />
+      <div className="maze">
+        <Maze data={props.board} stroked={true} onClick={(row, column) => handleClickElement(row, column)} scale={props.scale} />
+      </div>
       <div>
         <RadioButton onChange={() => setMode(0)} name="ModeSelector" checked={mode === 0} text="Wall" />
         <RadioButton onChange={() => setMode(1)} name="ModeSelector" checked={mode === 1} text="Path" />
@@ -219,12 +221,12 @@ function MazeCreation(props) {
         )}
         {outsideWallsCheck === 0 && (
           <Badge className="error-badges" colorScheme="2">
-            No continous outside wall
+            No continuous outside wall
           </Badge>
         )}
         {outsideWallsCheck === 1 && (
           <Badge className="error-badges" colorScheme="7">
-            Outside wall continous
+            Outside wall continuous
           </Badge>
         )}
       </div>

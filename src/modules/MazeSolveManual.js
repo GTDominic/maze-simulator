@@ -36,7 +36,7 @@ function MazeSolveManual(props) {
         for (let i = 0; i < path.length - 1; i++) {
           const element = path[i];
           const element2 = path[i + 1];
-          newBoard[element.row][element.column] = newBoard[element.row][element.column] === 4 ? newBoard[element2.row][element2.column] === 1 ? 4 : 1 : 4;
+          newBoard[element.row][element.column] = newBoard[element.row][element.column] === 4 ? (newBoard[element2.row][element2.column] === 1 ? 4 : 1) : 4;
         }
         const element = path[path.length - 1];
         newBoard[element.row][element.column] = 4;
@@ -64,9 +64,9 @@ function MazeSolveManual(props) {
   }, []);
 
   return (
-    <>
+    <div className="maze">
       <Maze data={props.board} stroked={false} onClick={(row, column) => handleClickElement(row, column)} focusPoint={focusPoint} scale={props.scale} />
-    </>
+    </div>
   );
 }
 

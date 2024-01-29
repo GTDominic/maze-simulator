@@ -17,3 +17,16 @@
 .menu-band {
   margin-bottom: 1rem;
 }
+
+.maze {
+  margin-left: 0.5rem;
+}
+
+#scale-input {
+  margin-left: 0.5rem;
+  width: 3rem;
+}
+
+#scale-row {
+  margin-left: 1rem;
+}

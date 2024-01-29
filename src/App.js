@@ -32,9 +32,9 @@ function App() {
             <RadioButton onChange={() => setMode(1)} name="SetMode" checked={mode === 1} text="Solve the Maze Manually" />
             <RadioButton onChange={() => setMode(2)} name="SetMode" checked={mode === 2} text="Algorithmically Solve the Maze" />
           </div>
-          <div>
+          <div id="scale-row">
             Scale: 
-            <Input type="Number" value={scale} onChange={handleScaleChange} />
+            <Input id="scale-input" type="Number" value={scale} onChange={handleScaleChange} />
           </div>
         </div>
         <div>
