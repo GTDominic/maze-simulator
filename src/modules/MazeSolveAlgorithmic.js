@@ -2,29 +2,26 @@ import React, { useState, useEffect } from "react";
 import Maze from "./Maze";
 import "./MazeSolveAlgorithmic.css";
 import { Select, Option, Button, Switch, Input } from "@ui5/webcomponents-react";
-
-import FollowRightWall from "../algorithms/FollowRightWall";
+import getAlgorithmLinks from "../algorithms/_AlgorithmLinks";
 
 function MazeSolveAlgorithmic(props) {
-  const algorithms = ["Follow Right Wall"];
-
   const [focusPoint, setFocusPoint] = useState(null);
-  const [currentAlgorithm, setCurrentAlgorithm] = useState(algorithms[0]);
-  const [runAI, setRunAI] = useState(false);
-  const [speed, setSpeed] = useState(500);
-  const [disabledElements, setDisabledElements] = useState(false);
   const [stats, setStats] = useState({
     steps: 0,
     boardChecks: 0,
     boardValueChanges: 0,
   });
-  const [followRightWall, setFollowRightWall] = useState(new FollowRightWall(props.board, props.setBoard, focusPoint, setFocusPoint, stats, setStats));
+  const [algorithms, setAlgorithms] = useState(getAlgorithmLinks(props.board, props.setBoard, focusPoint, setFocusPoint, stats, setStats));
+  const [currentAlgorithm, setCurrentAlgorithm] = useState(0);
+  const [runAI, setRunAI] = useState(false);
+  const [speed, setSpeed] = useState(500);
+  const [disabledElements, setDisabledElements] = useState(false);
 
   const step = () => {
     if (!disabledElements) {
       setDisabledElements(true);
     }
-    if (currentAlgorithm === algorithms[0]) followRightWall.step();
+    algorithms[currentAlgorithm].stepBase();
   };
 
   const reset = () => {
@@ -56,7 +53,9 @@ function MazeSolveAlgorithmic(props) {
       boardValueChanges: 0,
     });
     // Reset Algorithms
-    followRightWall.reset(newBoard, { row, column });
+    for (let algorithm of algorithms) {
+      algorithm.resetBase(newBoard, { row, column });
+    }
   };
 
   const handleSpeedChange = (e) => {
@@ -90,9 +89,9 @@ function MazeSolveAlgorithmic(props) {
           }}
           disabled={disabledElements}
         >
-          {algorithms.map((v) => (
-            <Option value={v} key={v}>
-              {v}
+          {algorithms.map((value, index) => (
+            <Option value={index} key={index}>
+              {value.name}
             </Option>
           ))}
         </Select>

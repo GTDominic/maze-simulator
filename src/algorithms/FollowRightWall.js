@@ -1,30 +1,19 @@
-class FollowRightWall {
-  board;
-  setBoard;
-  focusPoint;
-  setFocusPoint;
+import AlgorithmBase from "../modules/AlgorithmBase";
+
+class FollowRightWall extends AlgorithmBase {
   lastPosition;
-  stats;
-  setStats;
 
   constructor(board, setBoard, focusPoint, setFocusPoint, stats, setStats) {
-    this.board = board;
-    this.setBoard = setBoard;
-    this.focusPoint = focusPoint;
-    this.setFocusPoint = setFocusPoint;
-    this.stats = stats;
-    this.setStats = setStats;
+    super(board, setBoard, focusPoint, setFocusPoint, stats, setStats);
+    this.name = "Follow Right Wall";
+    this.lastPosition = null;
   }
 
-  reset(board, focusPoint) {
-    this.board = board;
-    this.focusPoint = focusPoint;
+  reset() {
     this.lastPosition = null;
   }
 
   step() {
-    if (this.board[this.focusPoint.row][this.focusPoint.column] === 3) return;
-    this.stats.steps++;
     if (!this.lastPosition) return this.firstStep();
     const xdif = this.focusPoint.column - this.lastPosition.column;
     const ydif = this.focusPoint.row - this.lastPosition.row;
@@ -50,9 +39,6 @@ class FollowRightWall {
     this.stats.boardValueChanges++;
     this.lastPosition = { row: frow, column: fcolumn };
     this.focusPoint = { row: nrow, column: ncolumn };
-    this.setBoard(this.board);
-    this.setFocusPoint(this.focusPoint);
-    this.setStats(this.stats);
   }
 
   firstStep() {
@@ -79,9 +65,6 @@ class FollowRightWall {
     this.board[nrow][ncolumn] = 4;
     this.stats.boardValueChanges++;
     this.focusPoint = { row: nrow, column: ncolumn };
-    this.setBoard(this.board);
-    this.setFocusPoint(this.focusPoint);
-    this.setStats(this.stats);
   }
 }
 
