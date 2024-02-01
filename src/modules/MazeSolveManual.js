@@ -1,6 +1,12 @@
 import { React, useState, useEffect } from "react";
 import Maze from "./Maze";
 
+/**
+ * Generates a React object were you can solve a maze manually
+ *
+ * @param {{board: Array.<Array.<Number>>, setBoard: Function, scale: Number}} props
+ * @returns React Element for solving the maze manual
+ */
 function MazeSolveManual(props) {
   const [focusPoint, setFocusPoint] = useState(() => {
     let row, column;
@@ -15,6 +21,12 @@ function MazeSolveManual(props) {
     return { row, column };
   });
 
+  /**
+   * Function for handling clicks and updating the maze accordingly
+   * @param {Number} row
+   * @param {Number} column
+   * @returns
+   */
   const handleClickElement = (row, column) => {
     const oldRow = focusPoint.row;
     const oldColumn = focusPoint.column;
@@ -52,6 +64,9 @@ function MazeSolveManual(props) {
     props.setBoard(newBoard);
   };
 
+  /**
+   * Reset the board when component is rendered
+   */
   useEffect(() => {
     let newBoard = [];
     for (const row of props.board) newBoard.push([...row]);

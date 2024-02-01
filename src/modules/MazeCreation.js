@@ -3,6 +3,11 @@ import { RadioButton, Badge, FileUploader, Input, Button } from "@ui5/webcompone
 import "./MazeCreation.css";
 import Maze from "./Maze";
 
+/**
+ * Renders the element for maze creation
+ * @param {{board: Array.<Array.<Number>>, setBoard: Function, scale: Number}} props
+ * @returns React element for maze creation
+ */
 function MazeCreation(props) {
   const widthInput = useRef(),
     heightInput = useRef();
@@ -14,6 +19,9 @@ function MazeCreation(props) {
   const [exitCheck, setExitCheck] = useState(0);
   const [outsideWallsCheck, setOutsideWallsCheck] = useState(1);
 
+  /**
+   * Handles changes in canvas size
+   */
   const handleChangeSize = () => {
     const newWidth = Number(widthInput.current.value);
     const newHeight = Number(heightInput.current.value);
@@ -49,6 +57,11 @@ function MazeCreation(props) {
     setWidth(newWidth);
   };
 
+  /**
+   * Changes type of element if the board is clicked
+   * @param {Number} row
+   * @param {Number} column
+   */
   const handleClickElement = (row, column) => {
     if (props.board[row][column] === mode) return;
     let newBoard = [];
@@ -57,6 +70,9 @@ function MazeCreation(props) {
     props.setBoard(newBoard);
   };
 
+  /**
+   * Check function wether outside wall is continuous
+   */
   const checkOutsideWall = () => {
     let hole = false;
     for (let element of props.board[0]) if (element === 1) hole = true;
@@ -68,6 +84,10 @@ function MazeCreation(props) {
     setOutsideWallsCheck(hole ? 0 : 1);
   };
 
+  /**
+   * Checks wether entrance/exit is on outside wall and that there is only one of them
+   * @param {Number} type
+   */
   const checkEntranceExit = (type) => {
     let outputMode;
     let eCount = 0;
@@ -103,6 +123,11 @@ function MazeCreation(props) {
     if (type === 3) setExitCheck(outputMode);
   };
 
+  /**
+   * Handles uploads from JSON
+   * @param {HTMLElement} e
+   * @returns
+   */
   const handleUpload = (e) => {
     let file = e.target.files[0];
     if (!file) return;
@@ -118,6 +143,9 @@ function MazeCreation(props) {
     reader.readAsText(file);
   };
 
+  /**
+   * Downloads current game state as JSON
+   */
   const handleDownload = () => {
     let a = document.createElement("a");
     let file = new Blob([JSON.stringify(props.board, null, 2)], { type: "text/plain" });
@@ -126,12 +154,18 @@ function MazeCreation(props) {
     a.click();
   };
 
+  /**
+   * Runs checks every time the board is changed
+   */
   useEffect(() => {
     checkOutsideWall();
     checkEntranceExit(2);
     checkEntranceExit(3);
   }, [props.board]);
 
+  /**
+   * Resets board on first render
+   */
   useEffect(() => {
     let newBoard = props.board;
     for (const row of newBoard) {

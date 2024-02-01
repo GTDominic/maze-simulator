@@ -7,7 +7,24 @@ import MazeCreation from "./modules/MazeCreation";
 import MazeSolveManual from "./modules/MazeSolveManual";
 import MazeSolveAlgorithmic from "./modules/MazeSolveAlgorithmic";
 
+/**
+ * This component renders the app and contains the main states of the app
+ *
+ * @returns {ReactNode} Returns the app as an react element
+ */
 function App() {
+  /**
+   * Sets the state of the board as an two dimensional array
+   *
+   * The number sets the type of board element
+   * 0 = Wall
+   * 1 = Path
+   * 2 = Entrance
+   * 3 = Exit
+   * 4 = Traveled Path
+   *
+   * @type {Array.<Array.<Number>>}
+   */
   const [board, setBoard] = useState([
     [0, 0],
     [0, 0],
@@ -15,13 +32,17 @@ function App() {
   const [mode, setMode] = useState(0);
   const [scale, setScale] = useState(20);
 
+  /**
+   * Handles the scale change from scale change input
+   * @param {HTMLElement} e
+   */
   const handleScaleChange = (e) => {
     const val = Number(e.target.value);
     if (!Number.isInteger(val) || val < 1) {
       e.target.value = scale;
-    };
+    }
     setScale(e.target.value);
-  }
+  };
 
   return (
     <div className="app">
@@ -33,7 +54,7 @@ function App() {
             <RadioButton onChange={() => setMode(2)} name="SetMode" checked={mode === 2} text="Algorithmically Solve the Maze" />
           </div>
           <div id="scale-row">
-            Scale: 
+            Scale:
             <Input id="scale-input" type="Number" value={scale} onChange={handleScaleChange} />
           </div>
         </div>

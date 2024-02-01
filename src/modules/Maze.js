@@ -1,8 +1,14 @@
 import React from "react";
 import "./Maze.css";
 
+/**
+ * Generates a Maze from data
+ *
+ * @param {{data: Array.<Array.<Number>>, stroked: Boolean, onClick: Function, scale: Number, focusPoint: {row: Number, column: Number}}} props
+ * @returns SVG Object for the maze
+ */
 function Maze(props) {
-  const classes = ["boardWall", "boardPath", "boardEntrance", "boardExit", "boardPathTravelled", "boardPathFocus"];
+  const classes = ["boardWall", "boardPath", "boardEntrance", "boardExit", "boardPathTraveled", "boardPathFocus"];
   const scale = props.scale;
   let renderData = [];
 
@@ -14,7 +20,7 @@ function Maze(props) {
           className = element === 2 ? classes[2] : classes[5];
         }
       }
-      if (props.stroked) className += 'Stroked';
+      if (props.stroked) className += "Stroked";
       renderData.push({ x: columnIndex * scale, y: rowIndex * scale, className, rowIndex, columnIndex });
     }
   }

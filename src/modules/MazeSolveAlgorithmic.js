@@ -4,6 +4,12 @@ import "./MazeSolveAlgorithmic.css";
 import { Select, Option, Button, Switch, Input } from "@ui5/webcomponents-react";
 import getAlgorithmLinks from "../algorithms/_AlgorithmLinks";
 
+/**
+ * Generates a react element for solving the maze with all menus
+ *
+ * @param {{board: Array.<Array.<Number>>, setBoard: Function, scale: Number}} props
+ * @returns React Element for solving the maze algorithmically
+ */
 function MazeSolveAlgorithmic(props) {
   const [focusPoint, setFocusPoint] = useState(null);
   const [stats, setStats] = useState({
@@ -17,6 +23,9 @@ function MazeSolveAlgorithmic(props) {
   const [speed, setSpeed] = useState(500);
   const [disabledElements, setDisabledElements] = useState(false);
 
+  /**
+   * Step function which calls the step function of the currently active algorithm
+   */
   const step = () => {
     if (!disabledElements) {
       setDisabledElements(true);
@@ -24,10 +33,12 @@ function MazeSolveAlgorithmic(props) {
     algorithms[currentAlgorithm].stepBase();
   };
 
+  /**
+   * Reset function which resets the board, focusPoint, stats and all algorithms
+   */
   const reset = () => {
     setRunAI(false);
     setDisabledElements(false);
-    // Reset Board
     let newBoard = props.board;
     for (const row of newBoard) {
       for (let i = 0; i < row.length; i++) {
@@ -35,7 +46,6 @@ function MazeSolveAlgorithmic(props) {
       }
     }
     let row, column;
-    // Reset Focus Point
     for (const [rowIndex, rowElement] of newBoard.entries()) {
       for (const [columnIndex, element] of rowElement.entries()) {
         if (element === 2) {
@@ -46,18 +56,20 @@ function MazeSolveAlgorithmic(props) {
     }
     setFocusPoint({ row, column });
     props.setBoard(newBoard);
-    // Reset Stats
     setStats({
       steps: 0,
       boardChecks: 0,
       boardValueChanges: 0,
     });
-    // Reset Algorithms
     for (let algorithm of algorithms) {
       algorithm.resetBase(newBoard, { row, column });
     }
   };
 
+  /**
+   * Changes the speed in which steps get called automatically
+   * @param {HTMLElement} e
+   */
   const handleSpeedChange = (e) => {
     const val = Number(e.target.value);
     if (!Number.isInteger(val) || val < 1) {
@@ -66,6 +78,9 @@ function MazeSolveAlgorithmic(props) {
     setSpeed(e.target.value);
   };
 
+  /**
+   * Creates the interval for automatic calling
+   */
   useEffect(() => {
     const autoRunInterval = setInterval(() => {
       if (runAI) step();
@@ -75,6 +90,9 @@ function MazeSolveAlgorithmic(props) {
     };
   }, [speed, runAI]);
 
+  /**
+   * Calls reset when component is first loaded
+   */
   useEffect(() => {
     reset();
   }, []);
