@@ -1,4 +1,5 @@
 import FollowRightWall from "./FollowRightWall";
+import SimpleTree from "./SimpleTree";
 
 /**
  * Links Created Algorithms.
@@ -16,6 +17,7 @@ import FollowRightWall from "./FollowRightWall";
 function getAlgorithmLinks(board, setBoard, focusPoint, setFocusPoint, stats, setStats) {
   return [
     new FollowRightWall(board, setBoard, focusPoint, setFocusPoint, stats, setStats),
+    new SimpleTree(board, setBoard, focusPoint, setFocusPoint, stats, setStats),
   ]
 }
 
