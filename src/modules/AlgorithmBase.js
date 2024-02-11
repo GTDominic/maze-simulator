@@ -52,6 +52,11 @@ class AlgorithmBase {
   resetBase(board, focusPoint) {
     this.board = board;
     this.focusPoint = focusPoint;
+    this.stats = {
+      steps: 0,
+      boardChecks: 0,
+      boardValueChanges: 0,
+    }
     this.reset();
   }
 
@@ -62,7 +67,11 @@ class AlgorithmBase {
     if (this.board[this.focusPoint.row][this.focusPoint.column] === 3) return;
     this.stats.steps++;
     this.step();
-    this.setBoard(this.board);
+    let nBoard = [];
+    for (let row of this.board) {
+      nBoard.push([...row]);
+    }
+    this.setBoard(nBoard);
     this.setFocusPoint(this.focusPoint);
     this.setStats(this.stats);
   }
