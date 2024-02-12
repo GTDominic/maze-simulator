@@ -31,6 +31,7 @@ function App() {
   ]);
   const [mode, setMode] = useState(0);
   const [scale, setScale] = useState(20);
+  const [error, setError] = useState(false);
 
   /**
    * Handles the scale change from scale change input
@@ -59,9 +60,10 @@ function App() {
           </div>
         </div>
         <div>
-          {mode === 0 && <MazeCreation board={board} setBoard={setBoard} scale={scale} />}
-          {mode === 1 && <MazeSolveManual board={board} setBoard={setBoard} scale={scale} />}
-          {mode === 2 && <MazeSolveAlgorithmic board={board} setBoard={setBoard} scale={scale} />}
+          {mode === 0 && <MazeCreation board={board} setBoard={setBoard} scale={scale} setError={setError} />}
+          {mode === 1 && !error && <MazeSolveManual board={board} setBoard={setBoard} scale={scale} />}
+          {mode === 2 && !error && <MazeSolveAlgorithmic board={board} setBoard={setBoard} scale={scale} />}
+          {(mode === 1 || mode === 2) && error && <div><p>Please fix the errors in the maze first!</p></div>}
         </div>
       </section>
     </div>

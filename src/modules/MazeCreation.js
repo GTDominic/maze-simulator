@@ -164,6 +164,13 @@ function MazeCreation(props) {
   }, [props.board]);
 
   /**
+   * Sets the error to true/false when checks are updated
+   */
+  useEffect(() => {
+    props.setError(!(outsideWallsCheck === 1 && exitCheck === 1 && entranceCheck === 1));
+  }, [outsideWallsCheck, exitCheck, entranceCheck]);
+
+  /**
    * Resets board on first render
    */
   useEffect(() => {
