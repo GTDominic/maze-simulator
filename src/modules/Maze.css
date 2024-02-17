@@ -1,0 +1,53 @@
+.boardWall {
+  fill: #000000;
+}
+
+.boardPath {
+  fill: #ffffff;
+}
+
+.boardEntrance {
+  fill: #00ffff;
+}
+
+.boardExit {
+  fill: #ffff00;
+}
+
+.boardPathTraveled {
+  fill: #ff0000;
+}
+
+.boardPathFocus {
+  fill: #0000ff;
+}
+
+.boardWallStroked {
+  fill: #000000;
+  stroke: #888888;
+}
+
+.boardPathStroked {
+  fill: #ffffff;
+  stroke: #888888;
+}
+
+.boardEntranceStroked {
+  fill: #00ffff;
+  stroke: #888888;
+}
+
+.boardExitStroked {
+  fill: #ffff00;
+  stroke: #888888;
+}
+
+.boardPathTravelledStroked {
+  fill: #ff0000;
+  stroke: #888888;
+}
+
+.boardPathFocusStroked {
+  fill: #0000ff;
+  stroke: #888888;
+}

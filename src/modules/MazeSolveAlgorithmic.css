@@ -1,0 +1,17 @@
+.switch {
+  vertical-align: middle;
+}
+
+.menu-element {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.alg-menu-bar {
+  margin-bottom: 1rem;
+}
+
+.alg-number-input {
+  margin-left: 2rem;
+  width: 4rem;
+}

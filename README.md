@@ -1,6 +1,32 @@
-# Getting Started with Create React App
+# About the Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This app allows you to build and solve mazes.
+Besides manual solving, you can also solve them algorithmically.
+You can also create your own algorithms for solving.
+
+# Algorithm Implementation Guide
+
+1. Create a class that extends the `AlgorithmBase` class
+2. Implement a constructor that takes the variables `board`, `setBoard`, `focusPoint`, `setFocusPoint`, `stats` and `setStats` and calls `super` with these variables
+3. Assign `this.name` a string with the name of your algorithm and initialize any attributes that you might want to use
+4. Implement the methods `reset()` and `step()`
+5. `reset()` gets called whenever the algorithm is reset so make sure to reset any attributes that you use
+6. `step()` is called for each individual step
+   1. `this.board: Array<Array<Number>>` contains the maze content with the following values:
+      1. `0`: Wall
+      2. `1`: Path
+      3. `2`: Entrance
+      4. `3`: Exit
+      5. `4`: Traveled Path
+   2. `this.focusPoint: {row: Number, column: Number}` You can use the focus point if you wish. To end the maze, set the focus point to the position of the exit
+   3. `this.stats: {boardValueChanges: Number, boardChecks: Number}` Iterate the stats whenever you check the board or change its value
+7. Open `_AlgorithmLinks.js` and add your algorithm to the array of returned algorithms
+
+# Installing and Running the App
+
+## Install
+
+To install the project locally for development or testing run `npm install`.
 
 ## Available Scripts
 
@@ -28,16 +54,6 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
 ## Learn More
 
