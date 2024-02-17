@@ -6,7 +6,21 @@ You can also create your own algorithms for solving.
 
 # Algorithm Implementation Guide
 
-TODO: Create an implementation guide
+1. Create a class that extends the `AlgorithmBase` class
+2. Implement a constructor that takes the variables `board`, `setBoard`, `focusPoint`, `setFocusPoint`, `stats` and `setStats` and calls `super` with these variables
+3. Assign `this.name` a string with the name of your algorithm and initialize any attributes that you might want to use
+4. Implement the methods `reset()` and `step()`
+5. `reset()` gets called whenever the algorithm is reset so make sure to reset any attributes that you use
+6. `step()` is called for each individual step
+   1. `this.board: Array<Array<Number>>` contains the maze content with the following values:
+      1. `0`: Wall
+      2. `1`: Path
+      3. `2`: Entrance
+      4. `3`: Exit
+      5. `4`: Traveled Path
+   2. `this.focusPoint: {row: Number, column: Number}` You can use the focus point if you wish. To end the maze, set the focus point to the position of the exit
+   3. `this.stats: {boardValueChanges: Number, boardChecks: Number}` Iterate the stats whenever you check the board or change its value
+7. Open `_AlgorithmLinks.js` and add your algorithm to the array of returned algorithms
 
 # Installing and Running the App
 
